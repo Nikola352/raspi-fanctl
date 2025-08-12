@@ -1,0 +1,18 @@
+_fanctl_completions()
+{
+    local cur
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+
+    # Predefined words
+    local opts="auto on off status"
+
+    # If user starts typing a number, don't suggest words
+    if [[ $cur =~ ^[0-9]*$ ]]; then
+        return 0
+    fi
+
+    COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+}
+
+complete -F _fanctl_completions fanctl
